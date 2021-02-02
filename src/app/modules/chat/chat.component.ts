@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './chat.component.html',
 })
 export class ChatComponent implements OnInit {
-  title = 'app-chat-angularjs';
   constructor() { }
 
   ngOnInit() {

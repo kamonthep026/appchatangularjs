@@ -1,6 +1,9 @@
-# MyDreamApp
+# MyAppChat
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
+
+## App Chat with Angular
+ngx-bootstrap-icons (https://www.npmjs.com/package/ngx-bootstrap-icons). ng-bootstrap (https://ng-bootstrap.github.io/#/components/buttons/examples).
 
 ## Development server
 
