@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "appchatangular-57612": {
+      "hosting": {
+        "app-chat-angularjs": [
+          "appchatangular-57612"
+        ]
+      }
+    }
+  }
+}
