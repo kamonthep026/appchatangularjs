@@ -12,12 +12,18 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatRoomComponent } from './modules/chat-room/chat-room.component';
 import { FormsModule } from '@angular/forms';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { HomeComponent } from './modules/home/home.component';
+import { LoginComponent } from './modules/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     routingComponents,
     ChatRoomComponent,
+    HomeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,9 @@ import { FormsModule } from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
-    HttpClientModule, FormsModule
+    HttpClientModule,
+    FormsModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

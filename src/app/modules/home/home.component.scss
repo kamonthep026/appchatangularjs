@@ -1,0 +1,44 @@
+.chat-leftsidebar {
+  height: 100vh;
+  background-color: #f5f7fb;
+
+  @media (min-width: 992px) {
+    min-width: 380px;
+    max-width: 380px;
+  }
+}
+
+.message-list {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgb(15 34 58 / 12%);
+  transition: all 0.4s;
+  min-height: 100vh;
+}
+
+.list-inline,
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.chat-list {
+  margin: 0;
+
+  li {
+    &:focus,
+    :hover,
+    :active {
+      background-color: #e6ebf5;
+    }
+  }
+
+  a {
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+    color: #7a7f9a;
+    transition: all 0.4s;
+    border-top: 1px solid #f5f7fb;
+    border-radius: 4px;
+  }
+}

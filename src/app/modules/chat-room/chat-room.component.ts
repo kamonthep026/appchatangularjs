@@ -1,6 +1,22 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from "@angular/router";
+import { AuthService } from '../../core/auth/auth.service';
+import { ChatService } from '../../core/auth/chat.service';
+
+export const snapshotToArray = (snapshot: any) => {
+  const returnArr = [];
+
+  snapshot.forEach((childSnapshot: any) => {
+      const item = childSnapshot.val();
+      item.key = childSnapshot.key;
+      returnArr.push(item);
+  });
+
+  return returnArr;
+};
 
 @Component({
   selector: 'app-chat-room',
@@ -8,45 +24,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./chat-room.component.scss']
 })
 export class ChatRoomComponent implements OnInit {
-  @ViewChild('chatContent') chatContent: ElementRef;
-  scrollTop: number = null;
-
-  chatForm: FormGroup;
-  nickName = '';
-  roomName = '';
-  message = '';
-  users = [];
-  chats = [
-    {
-      date: "03/02/2021 09:40:11",
-      message: "ok",
-      nickName: "Lobs",
-      roomName: "Angular",
-      type: "message"
-    }
-  ];
   chat$: Observable<any>;
   newMsg: string;
-
+  chats = [];
 
   constructor(
-    // public cs: ChatService,
-    // private route: ActivatedRoute,
-    // public auth: AuthService
-  ) {}
+    public cs: ChatService,
+    private route: ActivatedRoute,
+    public auth: AuthService
+  ) {
+  }
 
   ngOnInit() {
-    // const chatId = this.route.snapshot.paramMap.get('id');
-    // const source = this.cs.get(chatId);
-    // this.chat$ = this.cs.joinUsers(source);
+    const chatId = this.route.snapshot.paramMap.get('id');
+    const source = this.cs.get(chatId);
+    this.chat$ = this.cs.joinUsers(source);
     this.scrollBottom();
+    this.chat$.subscribe(x => {
+      console.log("11", x);
+    })
   }
 
   submit(chatId) {
     if (!this.newMsg) {
       return alert('you need to enter something');
     }
-    // this.cs.sendMessage(chatId, this.newMsg);
+    this.cs.sendMessage(chatId, this.newMsg);
     this.newMsg = '';
     this.scrollBottom();
   }
@@ -56,7 +59,7 @@ export class ChatRoomComponent implements OnInit {
   }
 
   private scrollBottom() {
-    setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 500);
+    setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 900);
   }
 
 }
