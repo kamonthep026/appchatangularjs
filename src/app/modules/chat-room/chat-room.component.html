@@ -21,10 +21,11 @@
         <ng-template #message>
           <div class="chat-message pt-3">
             <div class="right-bubble" [ngClass]="{
-                    'right-bubble': msg.user?.uid === nickname,
-                    'left-bubble': msg.user?.uid !== nickname}">
+                    'right-bubble text-right': msg.user?.uid === user.uid,
+                    'left-bubble': msg.user?.uid !== user.uid}">
               <div class="row">
-                <div class="col-2 d-flex align-self-center justify-content-center">
+                <div class="col-2 align-self-center justify-content-center"
+                  [ngClass]="{'d-none' : msg.user?.uid === user.uid}">
                   <div>
                     <img [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px" class="rounded-circle">
                   </div>
@@ -35,6 +36,12 @@
                   </span>
                   <span class="msg-date"> at {{msg.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</span>
                   <p text-wrap>{{msg.content}}</p>
+                </div>
+                <div class="col-2 align-self-center justify-content-center"
+                  [ngClass]="{'d-none' : msg.user?.uid !== user.uid}">
+                  <div>
+                    <img [src]=" msg.user?.photoURL || 'assets/unicorn.svg'" width=" 50px" class="rounded-circle">
+                  </div>
                 </div>
               </div>
             </div>

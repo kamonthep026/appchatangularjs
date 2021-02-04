@@ -10,9 +10,9 @@ export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
 
   snapshot.forEach((childSnapshot: any) => {
-      const item = childSnapshot.val();
-      item.key = childSnapshot.key;
-      returnArr.push(item);
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
   });
 
   return returnArr;
@@ -33,6 +33,9 @@ export class ChatRoomComponent implements OnInit {
     private route: ActivatedRoute,
     public auth: AuthService
   ) {
+    auth.user$.subscribe(x => {
+      return this.nickname = x.displayName
+    })
   }
 
   ngOnInit() {
@@ -43,8 +46,6 @@ export class ChatRoomComponent implements OnInit {
     this.chat$.subscribe(x => {
       console.log("11", x.messages);
     })
-    console.log("this.nickname",this.nickname);
-
   }
 
   submit(chatId) {
