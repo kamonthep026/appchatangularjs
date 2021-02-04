@@ -1,8 +1,14 @@
 <ng-container *ngIf="chat$ | async as chat">
   <ng-container *ngIf=" auth.user$ | async as user">
     <div class="p-2 p-lg-3 border-bottom">
-      <div class="align-items-center">
-        #{{chat.groupName}}
+      <div class="d-flex align-items-center">
+        <div class="mr-3 d-block d-lg-none">
+          <a [routerLink]="">
+            <i-bs name="arrow-left-square" class="text-secondary" width="1.5rem" height="1.5rem">
+            </i-bs>
+          </a>
+        </div>
+        <span class="font-weight-bold">#{{chat.groupName}}</span>
       </div>
     </div>
 
@@ -15,11 +21,13 @@
         <ng-template #message>
           <div class="chat-message pt-3">
             <div class="right-bubble" [ngClass]="{
-                    'right-bubble': msg.user?.displayName === msg.user?.displayName,
-                    'left-bubble': msg.user?.displayName !== msg.user?.displayName}">
+                    'right-bubble': msg.user?.uid === nickname,
+                    'left-bubble': msg.user?.uid !== nickname}">
               <div class="row">
-                <div class="col-2">
-                  <img [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px" class="rounded-circle">
+                <div class="col-2 d-flex align-self-center justify-content-center">
+                  <div>
+                    <img [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px" class="rounded-circle">
+                  </div>
                 </div>
                 <div class="col-10">
                   <span class="msg-name">

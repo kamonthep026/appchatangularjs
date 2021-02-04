@@ -26,7 +26,7 @@ export const snapshotToArray = (snapshot: any) => {
 export class ChatRoomComponent implements OnInit {
   chat$: Observable<any>;
   newMsg: string;
-  chats = [];
+  nickname = '';
 
   constructor(
     public cs: ChatService,
@@ -41,8 +41,10 @@ export class ChatRoomComponent implements OnInit {
     this.chat$ = this.cs.joinUsers(source);
     this.scrollBottom();
     this.chat$.subscribe(x => {
-      console.log("11", x);
+      console.log("11", x.messages);
     })
+    console.log("this.nickname",this.nickname);
+
   }
 
   submit(chatId) {

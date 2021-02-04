@@ -8,13 +8,15 @@ import { LoginComponent } from './modules/login/login.component';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, canActivate: [AuthGuard],
+    path: '',
+    component: HomeComponent,
     children: [
       {
         path: 'chats/:id',
         component: ChatRoomComponent,
       },
     ]
+    , canActivate: [AuthGuard]
   },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent },
