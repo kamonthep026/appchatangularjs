@@ -1,0 +1,86 @@
+<ng-container *ngIf="chat$ | async as chat">
+  <ng-container *ngIf=" auth.user$ | async as user">
+    <div class="p-2 p-lg-3 border-bottom">
+      <div class="d-flex align-items-center">
+        <div class="mr-3 d-block d-lg-none">
+          <a [routerLink]="">
+            <i-bs name="arrow-left-square" class="text-secondary" width="1.5rem" height="1.5rem">
+            </i-bs>
+          </a>
+        </div>
+        <span class="font-weight-bold">#{{chat.groupName}}</span>
+      </div>
+    </div>
+
+    <div #chatcontent class="chat-content py-3">
+      <div class="message-box" *ngFor="let msg of chat.messages; trackBy: trackByCreated">
+        <div class="chat-status" text-center *ngIf="chat.type==='join'||chat.type==='exit';else message">
+          <span class="chat-date">{{msg.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+          <span class="chat-content-center">{{msg.content}}</span>
+        </div>
+        <ng-template #message>
+          <div class="chat-message pt-3">
+            <div class="right-bubble" [ngClass]="{
+                    'right-bubble text-right': msg.user?.uid === user.uid,
+                    'left-bubble': msg.user?.uid !== user.uid}">
+              <div class="row">
+                <div class="col-2 align-self-center justify-content-center"
+                  [ngClass]="{'d-none' : msg.user?.uid === user.uid}">
+                  <div>
+                    <img [src]="msg.user?.photoURL || 'assets/unicorn.svg'" width="50px" class="rounded-circle">
+                  </div>
+                </div>
+                <div class="col-10">
+                  <span class="msg-name">
+                    {{msg.user?.displayName}}
+                  </span>
+                  <span class="msg-date"> at {{msg.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+                  <p text-wrap>{{msg.content}}</p>
+                </div>
+                <div class="col-2 align-self-center justify-content-center"
+                  [ngClass]="{'d-none' : msg.user?.uid !== user.uid}">
+                  <div>
+                    <img [src]=" msg.user?.photoURL || 'assets/unicorn.svg'" width=" 50px" class="rounded-circle">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="form p-2 border-top mb-0">
+      <div class="row no-gutters">
+        <div class="col">
+          <div>
+            <input type="text" placeholder="Enter Message..." class="form-control form-control-lg bg-light border-light"
+              [(ngModel)]="newMsg" maxlength="100" (keydown.enter)="submit(chat.id)">
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="chat-input-links ml-md-2">
+            <ul class="list-inline mb-0">
+              <!-- <li class="list-inline-item">
+                <button type="button" data-toggle="tooltip" data-placement="top" ngbtooltip="Emoji"
+                  class="btn btn-link text-decoration-none font-size-16 btn-lg waves-effect">
+                  <i-bs name="emoji-smile" class="text-primary" width="2rem" height="2rem">
+                  </i-bs>
+                </button>
+              </li> -->
+              <li class="list-inline-item">
+                <button type="submit" class="btn btn-primary font-size-16 btn-lg chat-send waves-effect waves-light"
+                  [disabled]="!newMsg" (click)="submit(chat.id)">
+                  <i-bs name="cursor-fill" width="2rem" height="2rem">
+                  </i-bs>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+
+</ng-container>

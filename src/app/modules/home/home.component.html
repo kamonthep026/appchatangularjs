@@ -1,0 +1,57 @@
+<div class="layout-wrapper d-lg-flex">
+  <app-header></app-header>
+  <div class="chat-leftsidebar mr-lg-1">
+    <div class="p-4">
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Create New Group</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-4">
+            <label for="name">Group Name</label>
+            <input type="text" id="addgroupname-input" class="form-control" placeholder="Enter Group Name"
+              [(ngModel)]="name" name="name">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" type="submit" [disabled]="!name"
+            (click)="cs.create(name).then(modal.close('Save click'))">Create
+            Groups</button>
+        </div>
+      </ng-template>
+      <div class="float-right">
+        <div ngbtooltip="Create group">
+          <button type="button" class="btn btn-link text-decoration-none text-muted font-size-18 py-0"
+            (click)="open(content)">
+            <i-bs name="people" width="2rem" height="2rem">
+            </i-bs>
+          </button>
+        </div>
+      </div>
+      <h4 class="mb-4">Groups</h4>
+      <div class="p-3">
+        <ul class="list-unstyled chat-list">
+          <li *ngFor="let chat of userChats$ | async">
+            <a [routerLink]="'chats/' + chat.id" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+              <div class="media align-items-center">
+                <div class="media-body overflow-hidden">
+                  <h5 class="text-truncate font-size-14 mb-0 text-dark">#{{ chat.groupName }}
+                    <span class="badge badge-soft-danger badge-pill float-right">{{ chat.messages.length }}
+                      Messages</span>
+                  </h5>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="message-list w-100 message-list-show">
+    <router-outlet></router-outlet>
+  </div>
+</div>

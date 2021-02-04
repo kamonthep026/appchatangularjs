@@ -1,0 +1,47 @@
+<div class="side-menu flex-lg-column mr-lg-1" *ngIf=" auth.user$ | async as user">
+  <div class="navbar-brand-box">
+    <a [routerLink]="['/']" class="logo logo-dark">
+      <span class="logo-sm">
+        <i-bs name="chat-left-text-fill" class="text-primary" width="2rem" height="2rem">
+        </i-bs>
+      </span>
+    </a>
+  </div>
+  <div class="flex-lg-column my-auto">
+    <ul class="nav nav-pills side-menu-nav justify-content-center">
+      <li ngbtooltip="Groups" class="nav-item">
+        <a id="pills-user-tab" class="nav-link" [routerLink]="['/']" [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{exact:true}">
+          <i-bs name="people" width="2rem" height="2rem">
+          </i-bs>
+        </a>
+      </li>
+      <li class="nav-item profile-user-dropdown d-inline-block d-lg-none dropup" ngbDropdown display="dynamic"
+        placement="top-left">
+        <a [routerLink]="['/']" role="button" data-toggle="dropdown" id="dropdownConfig" ngbDropdownToggle
+          class="dropdown-toggle nav-link">
+          <img [src]="user.photoURL || 'assets/unicorn.svg'" class="profile-user rounded-circle">
+        </a>
+        <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+          <a ngbDropdownItem [routerLink]="['/']" (click)="auth.signOut()">Log out <i-bs name="arrow-right-square"
+              class="text-secondary float-right d-block" width="1rem" height="1rem">
+            </i-bs></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="flex-lg-column d-none d-lg-block">
+    <ul class="nav side-menu-nav justify-content-center">
+      <li class="nav-item btn-group profile-user-dropdown show dropup" ngbDropdown display="dynamic"
+        placement="top-left">
+        <a [routerLink]="['/']" role="button" data-toggle="dropdown" id="dropdownConfig" ngbDropdownToggle
+          class="dropdown-toggle nav-link">
+          <img [src]="user.photoURL || 'assets/unicorn.svg'" class="profile-user rounded-circle">
+        </a>
+        <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+          <a ngbDropdownItem [routerLink]="['/']" (click)="auth.signOut()">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
